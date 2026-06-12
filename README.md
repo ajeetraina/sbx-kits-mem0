@@ -65,7 +65,7 @@ PY
 !curl -s http://host.docker.internal:12434/engines/v1/models | head
 ```
 
-Expect a JSON list including ai/gemma3 and ai/mxbai-embed-large. If this hangs or errors, DMR isn't reachable, fix this before step 5 (it's the most common failure).
+Expect a JSON list including ai/gemma3 and ai/mxbai-embed-large. 
 
 
 
