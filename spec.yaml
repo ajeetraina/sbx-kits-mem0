@@ -22,14 +22,8 @@ environment:
     OPENAI_BASE_URL: "http://host.docker.internal:12434/engines/v1"
     OPENAI_API_KEY: "dmr"
     MEM0_TELEMETRY: "false"
-    # Override the sandbox proxy's NO_PROXY, which includes the IPv6 literal "::1"
-    # that older httpx versions fail to parse (httpx.InvalidURL: Invalid port ':1]').
-    # Keep host.docker.internal so DMR traffic continues to bypass the egress proxy.
     NO_PROXY: "localhost,127.0.0.1,host.docker.internal"
     no_proxy: "localhost,127.0.0.1,host.docker.internal"
-    # Force fastembed/huggingface_hub down the classic LFS download path
-    # (cdn-lfs.huggingface.co, already allowed) instead of the newer Xet
-    # protocol, which redirects to cas-bridge.xethub.hf.co.
     HF_HUB_DISABLE_XET: "1"
 
 commands:
