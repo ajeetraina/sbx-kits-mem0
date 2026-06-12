@@ -44,7 +44,11 @@ Inside the sandbox, Mem0 is ready to use against DMR:
 
 ```console
 !python3 - <<'PY'
-import json
+import os, json
+for var in ("NO_PROXY", "no_proxy"):
+    if var in os.environ:
+          os.environ[var] = ",".join(e for e in os.environ[var].split(",") if e.strip() != "[::1]")
+
 from mem0 import Memory
 
 with open("/home/agent/.mem0/config.json") as f:
