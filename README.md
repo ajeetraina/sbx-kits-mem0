@@ -23,13 +23,13 @@ $ sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
 Or straight from this repo over git:
 
 ```console
-$ sbx run --kit "git+https://github.com/ajeetraina/mem0-sbx-kits.git" claude
+$ sbx run --kit "git+https://github.com/ajeetraina/sbx-kits-mem0.git" claude
 ```
 
 Or from a local clone (the kit lives at the repo root):
 
 ```console
-$ git clone https://github.com/ajeetraina/mem0-sbx-kits.git
+$ git clone https://github.com/ajeetraina/sbx-kits-mem0.git
 $ sbx run --kit ./mem0-sbx-kits/ claude
 ```
 
