@@ -11,6 +11,12 @@ network:
     - huggingface.co
     - cdn-lfs.huggingface.co
     - cdn-lfs-us-1.huggingface.co
+    # spaCy's `download` command resolves the model version from a
+    # compatibility table on raw.githubusercontent.com, then pip-installs
+    # the wheel from a GitHub release (github.com → release-assets.githubusercontent.com).
+    - raw.githubusercontent.com
+    - github.com
+    - release-assets.githubusercontent.com
 
 environment:
   variables:
@@ -31,9 +37,9 @@ commands:
     - command: "pip install --break-system-packages fastembed"
       user: "1000"
       description: "Install fastembed for BM25 keyword search"
-    - command: "pip install --break-system-packages en_core_web_sm"
+    - command: "PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m spacy download en_core_web_sm"
       user: "1000"
-      description: "Install spaCy English model (from PyPI, avoids spacy download's unflagged pip call)"
+      description: "Download spaCy English model (env var lets spacy's internal pip call bypass PEP 668)"
   initFiles:
     - path: /home/agent/.mem0/config.json
       mode: "0644"
