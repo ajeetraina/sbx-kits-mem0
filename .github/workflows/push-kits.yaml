@@ -43,4 +43,4 @@ jobs:
         env:
           DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}
           TAG: ${{ inputs.tag }}
-        run: ./scripts/push-kits.sh
+        run: bash ./scripts/push-kits.sh
