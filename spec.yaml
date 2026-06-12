@@ -31,9 +31,9 @@ commands:
     - command: "pip install --break-system-packages fastembed"
       user: "1000"
       description: "Install fastembed for BM25 keyword search"
-    - command: "python3 -m spacy download en_core_web_sm"
+    - command: "pip install --break-system-packages en_core_web_sm"
       user: "1000"
-      description: "Download spaCy English model"
+      description: "Install spaCy English model (from PyPI, avoids spacy download's unflagged pip call)"
   initFiles:
     - path: /home/agent/.mem0/config.json
       mode: "0644"
