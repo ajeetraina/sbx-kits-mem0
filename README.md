@@ -35,7 +35,8 @@ sbx run --kit ./mem0-sbx-kits/ claude
 
 Inside the sandbox, Mem0 is ready to use against DMR:
 
-```python
+```console
+!python3 - <<'PY'
 import json
 from mem0 import Memory
 
@@ -44,6 +45,7 @@ with open("/home/agent/.mem0/config.json") as f:
 
 m.add([{"role": "user", "content": "I prefer dark roast coffee"}], user_id="alice")
 print(m.search("what coffee do they like?", filters={"user_id": "alice"}))
+PY
 ```
 
 
