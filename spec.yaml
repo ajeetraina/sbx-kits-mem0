@@ -8,11 +8,9 @@ network:
   allowedDomains:
     - pypi.org
     - files.pythonhosted.org
-    - huggingface.co
-    - cdn-lfs.huggingface.co
-    - cdn-lfs-us-1.huggingface.co
-    - xethub.hf.co
-    - cas-bridge.xethub.hf.co
+    # spaCy's `download` command resolves the model version from a
+    # compatibility table on raw.githubusercontent.com, then pip-installs
+    # the wheel from a GitHub release (github.com → release-assets.githubusercontent.com).
     - raw.githubusercontent.com
     - github.com
     - release-assets.githubusercontent.com
@@ -22,18 +20,17 @@ environment:
     OPENAI_BASE_URL: "http://host.docker.internal:12434/engines/v1"
     OPENAI_API_KEY: "dmr"
     MEM0_TELEMETRY: "false"
+    # Override the sandbox proxy's NO_PROXY, which includes the IPv6 literal "::1"
+    # that older httpx versions fail to parse (httpx.InvalidURL: Invalid port ':1]').
+    # Keep host.docker.internal so DMR traffic continues to bypass the egress proxy.
     NO_PROXY: "localhost,127.0.0.1,host.docker.internal"
     no_proxy: "localhost,127.0.0.1,host.docker.internal"
-    HF_HUB_DISABLE_XET: "1"
 
 commands:
   install:
     - command: "pip install --break-system-packages 'mem0ai[nlp]==2.0.5'"
       user: "1000"
       description: "Install Mem0 with NLP extras (spaCy lemmatization)"
-    - command: "pip install --break-system-packages fastembed"
-      user: "1000"
-      description: "Install fastembed for BM25 keyword search"
     - command: "PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m spacy download en_core_web_sm"
       user: "1000"
       description: "Download spaCy English model (env var lets spacy's internal pip call bypass PEP 668)"
