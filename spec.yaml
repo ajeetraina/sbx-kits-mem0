@@ -8,18 +8,32 @@ network:
   allowedDomains:
     - pypi.org
     - files.pythonhosted.org
+    - huggingface.co
+    - cdn-lfs.huggingface.co
+    - cdn-lfs-us-1.huggingface.co
 
 environment:
   variables:
     OPENAI_BASE_URL: "http://host.docker.internal:12434/engines/v1"
     OPENAI_API_KEY: "dmr"
     MEM0_TELEMETRY: "false"
+    # Override the sandbox proxy's NO_PROXY, which includes the IPv6 literal "::1"
+    # that older httpx versions fail to parse (httpx.InvalidURL: Invalid port ':1]').
+    # Keep host.docker.internal so DMR traffic continues to bypass the egress proxy.
+    NO_PROXY: "localhost,127.0.0.1,host.docker.internal"
+    no_proxy: "localhost,127.0.0.1,host.docker.internal"
 
 commands:
   install:
-    - command: "pip install --break-system-packages mem0ai==2.0.5"
+    - command: "pip install --break-system-packages 'mem0ai[nlp]==2.0.5'"
       user: "1000"
-      description: "Install Mem0 (mem0ai==2.0.5)"
+      description: "Install Mem0 with NLP extras (spaCy lemmatization)"
+    - command: "pip install --break-system-packages fastembed"
+      user: "1000"
+      description: "Install fastembed for BM25 keyword search"
+    - command: "python3 -m spacy download en_core_web_sm"
+      user: "1000"
+      description: "Download spaCy English model"
   initFiles:
     - path: /home/agent/.mem0/config.json
       mode: "0644"
