@@ -46,36 +46,5 @@ m.add([{"role": "user", "content": "I prefer dark roast coffee"}], user_id="alic
 print(m.search("what coffee do they like?", filters={"user_id": "alice"}))
 ```
 
-## Testing
 
-After enabling DMR and pulling the two models (above):
-
-```console
-# 1. Validate the spec
-$ sbx kit validate ./
-
-# 2. Create a sandbox with the kit
-$ sbx run --kit ./ --name mem0-probe claude .
-
-# 3. Confirm the package installed and DMR is reachable from inside
-$ sbx exec mem0-probe -- python3 -c "import mem0; print('mem0', mem0.__version__)"
-$ sbx exec mem0-probe -- sh -c 'curl -s http://host.docker.internal:12434/engines/v1/models | head -c 400'
-
-# 4. Functional round-trip: add -> search (exercises LLM + embedder + Qdrant)
-$ sbx exec mem0-probe -- python3 - <<'PY'
-import json
-from mem0 import Memory
-with open("/home/agent/.mem0/config.json") as f:
-    m = Memory.from_config(json.load(f))
-m.add([{"role": "user", "content": "I prefer dark roast coffee"}], user_id="alice")
-print("RESULTS:", json.dumps(m.search("what coffee do they like?", filters={"user_id": "alice"}), indent=2)[:600])
-PY
-
-# 5. Clean up
-$ sbx rm mem0-probe
-```
-
-**Pass criteria:** step 4 returns the coffee memory with no traceback that
-proves the LLM (extraction), the embedder, and the on-disk Qdrant store all
-worked against local DMR.
 
