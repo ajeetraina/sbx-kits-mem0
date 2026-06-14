@@ -1,8 +1,8 @@
-# DMR — Docker Model Runner (default, local, no keys)
+# DMR: Docker Model Runner (default, local, no keys)
 
 This is what the kit ships with. Both the LLM (fact extraction) and the embedder
 run locally via [Docker Model Runner](https://docs.docker.com/ai/model-runner/),
-so **no cloud credentials and no external vector database** are needed.
+so no cloud credentials and no external vector database are needed.
 
 | | |
 |---|---|
@@ -11,7 +11,7 @@ so **no cloud credentials and no external vector database** are needed.
 | Credential | none (`api_key: "dmr"` is a placeholder DMR ignores) |
 | LLM model | `ai/gemma3` |
 | Embedder model | `ai/mxbai-embed-large` |
-| Vector dimensions | **1024** |
+| Vector dimensions | 1024 |
 | Network | already covered by the kit |
 
 ## Prerequisites
@@ -24,7 +24,7 @@ docker model pull ai/gemma3              # LLM for memory extraction
 docker model pull ai/mxbai-embed-large   # embedder (1024-dim)
 ```
 
-## Config — `/home/agent/.mem0/config.json`
+## Config (`/home/agent/.mem0/config.json`)
 
 This is the default the kit installs; you don't have to write it yourself.
 
