@@ -46,12 +46,6 @@ network:
 
 (The key is read from `GOOGLE_API_KEY`.)
 
-## Run
 
-```console
-sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest \
-  -e GOOGLE_API_KEY=... \
-  claude
-```
 
 
