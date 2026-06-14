@@ -24,16 +24,18 @@ echo "$OPENAI_API_KEY" | sbx secret set -g openai   # -g = all sandboxes
 
 ## Run
 
-This provider has a ready-made kit at [`kits/openai/`](../kits/openai/spec.yaml).
-Store your key, then launch. No hand-editing:
+This provider is published as a ready-made image. Store your key, then launch:
 
 ```bash
 echo "$OPENAI_API_KEY" | sbx secret set -g openai
-sbx run --kit ./kits/openai claude
+sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:openai claude
 ```
 
-(A future per-provider image will let you run
-`--kit docker.io/ajeetraina777/sbx-mem0-kits:openai` instead of the local path.)
+Or run the same spec straight from this repo, no Hub pull:
+
+```bash
+sbx run --kit ./kits/openai claude
+```
 
 ## What the kit contains
 

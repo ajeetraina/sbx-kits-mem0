@@ -23,16 +23,18 @@ echo "$GOOGLE_API_KEY" | sbx secret set -g google   # -g = all sandboxes
 
 ## Run
 
-This provider has a ready-made kit at [`kits/gemini/`](../kits/gemini/spec.yaml).
-Store your key, then launch. No hand-editing:
+This provider is published as a ready-made image. Store your key, then launch:
 
 ```bash
 echo "$GOOGLE_API_KEY" | sbx secret set -g google
-sbx run --kit ./kits/gemini claude
+sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:gemini claude
 ```
 
-(A future per-provider image will let you run
-`--kit docker.io/ajeetraina777/sbx-mem0-kits:gemini` instead of the local path.)
+Or run the same spec straight from this repo, no Hub pull:
+
+```bash
+sbx run --kit ./kits/gemini claude
+```
 
 ## What the kit contains
 

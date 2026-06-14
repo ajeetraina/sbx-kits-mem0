@@ -38,13 +38,14 @@ the LLM and the embedder.
 
 ## How to switch provider
 
-Each provider has a ready-made kit under [`kits/`](../kits): `kits/dmr` (default,
-local), `kits/openai`, and `kits/gemini`. Pick one, store its key if it's a cloud
+Each provider is published as an image tag (`:dmr`, `:openai`, `:gemini`), and the
+same specs live under [`kits/`](../kits). Pick one, store its key if it's a cloud
 provider, and run it:
 
 ```bash
 sbx secret set -g openai            # cloud providers only (or -g google)
-sbx run --kit ./kits/openai claude
+sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:openai claude
+# or from this repo: sbx run --kit ./kits/openai claude
 ```
 
 No hand-editing of `config.json` or `spec.yaml`. The matching `allowedDomains`,
