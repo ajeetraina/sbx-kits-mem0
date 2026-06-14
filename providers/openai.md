@@ -22,23 +22,26 @@ echo "$OPENAI_API_KEY" | sbx secret set -g openai   # -g = all sandboxes
 # or run `sbx secret set -g openai` for an interactive prompt
 ```
 
-The kit defaults `OPENAI_BASE_URL` to the local DMR endpoint, so the `config.json`
-below pins `openai_base_url` to real OpenAI. A value set in the config takes
-precedence over the env var.
+## Run
 
-## Network (edit `spec.yaml`)
+This provider has a ready-made kit at [`kits/openai/`](../kits/openai/spec.yaml).
+Store your key, then launch. No hand-editing:
 
-Add the OpenAI host to `network.allowedDomains`, or the sandbox will block the
-call:
-
-```yaml
-network:
-  allowedDomains:
-    - api.openai.com
-    # ...existing entries
+```bash
+echo "$OPENAI_API_KEY" | sbx secret set -g openai
+sbx run --kit ./kits/openai claude
 ```
 
-## Config (`/home/agent/.mem0/config.json`)
+(A future per-provider image will let you run
+`--kit docker.io/ajeetraina777/sbx-mem0-kits:openai` instead of the local path.)
+
+## What the kit contains
+
+`kits/openai/spec.yaml` already wires everything:
+
+- `network.allowedDomains` includes `api.openai.com`.
+- `config.json` uses the `openai` provider for both halves, with `openai_base_url`
+  pinned to `https://api.openai.com/v1`:
 
 ```json
 {
@@ -68,15 +71,8 @@ network:
 }
 ```
 
-The API key is not in the config. It's supplied by the `sbx secret`
-injection above, so nothing sensitive lives in `config.json`.
-
-## Run
-
-```console
-# key already stored via `sbx secret set -g openai`
-sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
-```
+The key is never in the kit or `config.json`. The sbx proxy injects it from the
+stored `openai` secret.
 
 ## Notes
 

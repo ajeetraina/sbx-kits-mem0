@@ -38,10 +38,17 @@ the LLM and the embedder.
 
 ## How to switch provider
 
-The kit writes `/home/agent/.mem0/config.json` only if it's missing
-(`onlyIfMissing: true`). To use a different provider, replace that file with the
-one from the provider's page (or delete it and recreate it inside the sandbox),
-then re-run the verify snippet. Cloud providers also need their API domain added to
-`allowedDomains` in `spec.yaml`, and their API key stored with `sbx secret set`
-(never passed on the command line; `sbx run` has no `-e` flag, and the proxy injects
-the secret so it never enters the sandbox). Each page spells out exactly what.
+Each provider has a ready-made kit under [`kits/`](../kits): `kits/dmr` (default,
+local), `kits/openai`, and `kits/gemini`. Pick one, store its key if it's a cloud
+provider, and run it:
+
+```bash
+sbx secret set -g openai            # cloud providers only (or -g google)
+sbx run --kit ./kits/openai claude
+```
+
+No hand-editing of `config.json` or `spec.yaml`. The matching `allowedDomains`,
+install steps, and `config.json` are already baked into each kit. Keys are never
+stored in the kit; the sbx proxy injects them from the stored secret, so they
+never enter the sandbox (`sbx run` has no `-e` flag). Each provider's page has the
+details.

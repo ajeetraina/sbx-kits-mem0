@@ -21,42 +21,32 @@ echo "$GOOGLE_API_KEY" | sbx secret set -g google   # -g = all sandboxes
 # or run `sbx secret set -g google` for an interactive prompt
 ```
 
-## Network (edit `spec.yaml`)
+## Run
 
-```yaml
-network:
-  allowedDomains:
-    - generativelanguage.googleapis.com
-    # ...existing entries
+This provider has a ready-made kit at [`kits/gemini/`](../kits/gemini/spec.yaml).
+Store your key, then launch. No hand-editing:
+
+```bash
+echo "$GOOGLE_API_KEY" | sbx secret set -g google
+sbx run --kit ./kits/gemini claude
 ```
 
-## Two extra kit changes Gemini needs
+(A future per-provider image will let you run
+`--kit docker.io/ajeetraina777/sbx-mem0-kits:gemini` instead of the local path.)
 
-Unlike OpenAI (whose SDK ships inside `mem0ai`, and whose placeholder key the kit
-already sets), Gemini needs two additions to the kit's `spec.yaml`:
+## What the kit contains
 
-1. Install the `google-genai` SDK. Mem0's `gemini` provider imports it, but
-   it is *not* a `mem0ai` dependency:
-   ```yaml
-   commands:
-     install:
-       - command: "pip install --break-system-packages 'mem0ai[nlp]==2.0.5' google-genai click"
-         user: "1000"
-   ```
-2. Set a placeholder `GOOGLE_API_KEY`. The SDK won't send a request without a
-   key present, and the proxy only *replaces* the value on the wire. Any non-empty
-   string works; the real key arrives via `sbx secret`:
-   ```yaml
-   environment:
-     variables:
-       GOOGLE_API_KEY: "placeholder"
-   ```
+Gemini needs two things beyond the OpenAI setup, and `kits/gemini/spec.yaml`
+already handles both:
 
-Validated June 2026: with `GOOGLE_API_KEY=placeholder` in the sandbox env, a real
-768-dim embedding came back from `generativelanguage.googleapis.com`, proving the
-proxy injected the stored `google` secret.
+- It installs the `google-genai` SDK (Mem0's `gemini` provider imports it, but it
+  is not a `mem0ai` dependency).
+- It sets a placeholder `GOOGLE_API_KEY`, because the SDK won't send a request
+  without a key present and the proxy only replaces the value on the wire. The
+  real key arrives from the stored `google` secret.
 
-## Config (`/home/agent/.mem0/config.json`)
+It also adds `generativelanguage.googleapis.com` to `allowedDomains` and writes
+this `config.json`:
 
 ```json
 {
@@ -80,18 +70,9 @@ proxy injected the stored `google` secret.
 }
 ```
 
-The key is not in the config. It's supplied by the `sbx secret` injection
-above.
-
-## Run
-
-Because of the two changes above, Gemini needs a kit built from an edited
-`spec.yaml` (the published Hub image ships the DMR defaults only):
-
-```console
-# key already stored via `sbx secret set -g google`
-sbx run --kit ./ claude          # from your local repo with the edits applied
-```
+Validated June 2026: with `GOOGLE_API_KEY=placeholder` in the sandbox env, a real
+768-dim embedding came back from `generativelanguage.googleapis.com`, proving the
+proxy injected the stored `google` secret.
 
 ## Notes
 

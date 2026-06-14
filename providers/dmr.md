@@ -64,8 +64,13 @@ This is the default the kit installs; you don't have to write it yourself.
 
 ## Run
 
+The default kit is published as the Hub image, or run the standalone spec at
+[`kits/dmr/`](../kits/dmr/spec.yaml):
+
 ```console
 sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
+# or from this repo:
+sbx run --kit ./kits/dmr claude
 ```
 
 ## Verify (inside the sandbox)
