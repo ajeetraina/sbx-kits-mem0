@@ -1,4 +1,4 @@
-# Gemini — Google (cloud)
+# Gemini 
 
 Gemini *does* offer an embeddings API (similar to OpenAI).
 
