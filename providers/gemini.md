@@ -1,7 +1,5 @@
 # Gemini: Google (cloud)
 
-Power both halves from a Google AI Studio key. Gemini *does* offer an embeddings
-API, so like OpenAI, one key covers the LLM and the embedder.
 
 | | |
 |---|---|
