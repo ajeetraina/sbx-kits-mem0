@@ -53,7 +53,7 @@ network:
 }
 ```
 
-(The API key is read from `OPENAI_API_KEY`; no need to inline it.)
+
 
 
 
