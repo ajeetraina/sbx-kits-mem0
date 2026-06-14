@@ -3,6 +3,8 @@
 This is a standalone [Docker Sandboxes](https://docs.docker.com/ai/sandboxes/) kit (`kind: mixin`) that adds the [Mem0](https://mem0.ai/) memory layer (`mem0ai`)
 to any sandbox agent, pre-wired to a local [Docker Model Runner](https://docs.docker.com/ai/model-runner/) (DMR) for both the LLM and the embedder.
 
+DMR is the **zero-config default**, it works with no cloud keys but the embedder and LLM are both swappable. See **[`providers/`](./providers/)** for copy-paste config for OpenAI, Gemini, Hugging Face, and more.
+
 
 ## Prerequisites
 
@@ -67,5 +69,23 @@ PY
 
 Expect a JSON list including ai/gemma3 and ai/mxbai-embed-large. 
 
+## Swapping the embedding / LLM provider
+
+Mem0 is a **semantic** memory store, so an embedder is mandatory. There is no
+"memory without embeddings" mode. DMR provides it locally by default, which
+matters most for **Claude** agents: Anthropic
+[ships no embeddings API](https://docs.anthropic.com/en/docs/build-with-claude/embeddings)
+(it points to Voyage, which Mem0 doesn't support as a provider). OpenAI/Gemini
+users can instead reuse one key for both the LLM and the embedder.
+
+| Provider | Mem0 `provider` | Local? | Credential | Example embed model | Dims |
+|---|---|---|---|---|---|
+| **[DMR](./providers/dmr.md)** *(default)* | `openai` *(+ base_url)* | ✅ local | none | `ai/mxbai-embed-large` | 1024 |
+| **[OpenAI](./providers/openai.md)** | `openai` | ☁️ cloud | `OPENAI_API_KEY` | `text-embedding-3-small` | 1536 |
+| **[Ollama](./providers/ollama.md)** | `ollama` | ✅ local server | none | `nomic-embed-text` | 768 |
+| **[Gemini](./providers/gemini.md)** | `gemini` | ☁️ cloud | `GOOGLE_API_KEY` | `models/gemini-embedding-001` | 768 |
+| **[Hugging Face](./providers/huggingface.md)** | `huggingface` | ✅ local | none | `all-MiniLM-L6-v2` | 384 |
 
 
+Each page has the exact `config.json`, run command, and the dimension/network
+gotchas. Full notes: **[`providers/README.md`](./providers/README.md)**.

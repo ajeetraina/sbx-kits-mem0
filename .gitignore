@@ -6,3 +6,4 @@
 **/*.py[cod]
 *.tar
 *.zip
+*.claude
