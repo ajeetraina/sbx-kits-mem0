@@ -1,6 +1,6 @@
-# Hugging Face (in-process, no server, no key)
+# Hugging Face
 
-Runs a `sentence-transformers` model **inside the Python process** — no separate
+Runs a `sentence-transformers` model **inside the Python process**, no separate
 server, no API key, no cloud call at inference time. The model is downloaded once
 from `huggingface.co`. Good for a fully offline embedder when you don't want to
 run DMR or Ollama.
@@ -17,10 +17,10 @@ run DMR or Ollama.
 ## Note on the LLM half
 
 `huggingface` here covers the **embedder** only. Mem0 still needs an LLM for fact
-extraction — keep that on DMR (`ai/gemma3`) or a cloud provider. The config below
+extraction ~ keep that on DMR (`ai/gemma3`) or a cloud provider. The config below
 pairs the HF embedder with the DMR LLM.
 
-## Network — edit `spec.yaml`
+## Network ~ edit `spec.yaml`
 
 Add the download host (only needed the first time the model is fetched):
 
@@ -32,7 +32,7 @@ network:
     # ...existing entries
 ```
 
-## Config — `/home/agent/.mem0/config.json`
+## Config ~ `/home/agent/.mem0/config.json`
 
 ```json
 {
@@ -66,12 +66,4 @@ network:
 sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
 ```
 
-## Gotchas
 
-- The first `add()` downloads the model (~90 MB) — slower, and needs the
-  `huggingface.co` domain allowed. After that it's fully local.
-- `all-MiniLM-L6-v2` is 384-dim. A bigger model like `BAAI/bge-base-en-v1.5` is
-  768-dim — update `embedding_model_dims` and start a fresh collection if you
-  switch.
-- Prefer no PyTorch dependency? The `fastembed` provider runs ONNX models
-  in-process instead (e.g. `BAAI/bge-small-en-v1.5`, also 384-dim).
