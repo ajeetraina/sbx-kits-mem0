@@ -1,6 +1,6 @@
-# OpenAI (cloud)
+# OpenAI
 
-If you already pay for OpenAI, you can power **both** halves from one key — the
+If you already pay for OpenAI, you can power **both** halves from one key - the
 LLM (fact extraction) and the embedder (semantic search) flow through the same
 `openai` provider.
 
@@ -66,8 +66,3 @@ sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest \
   claude
 ```
 
-## Gotcha
-
-Using `text-embedding-3-large` instead? That's **3072** dims — change
-`embedding_model_dims` to `3072` and start a fresh collection
-(`rm -rf /home/agent/.mem0/qdrant` or a new `collection_name`).
