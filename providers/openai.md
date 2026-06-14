@@ -55,12 +55,5 @@ network:
 
 (The API key is read from `OPENAI_API_KEY`; no need to inline it.)
 
-## Run
 
-```console
-sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest \
-  -e OPENAI_BASE_URL=https://api.openai.com/v1 \
-  -e OPENAI_API_KEY=sk-... \
-  claude
-```
 
