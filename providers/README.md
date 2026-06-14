@@ -1,6 +1,6 @@
 # Embedding & LLM providers for the Mem0 kit
 
-Mem0 is a **semantic** memory store — the vector store *is* the memory. Every
+Mem0 is a **semantic** memory store - the vector store *is* the memory. Every
 `add()` embeds the extracted fact, and every `search()` embeds the query, so an
 **embedder is mandatory**; there is no "memory without embeddings" mode. Mem0
 also uses an **LLM** internally to extract facts from a conversation and decide
@@ -24,10 +24,9 @@ per provider with copy-paste config.
 |---|---|---|---|---|---|
 | **[DMR](./dmr.md)** *(default)* | `openai` *(+ base_url)* | ✅ local | none | `ai/mxbai-embed-large` | 1024 |
 | **[OpenAI](./openai.md)** | `openai` | ☁️ cloud | `OPENAI_API_KEY` | `text-embedding-3-small` | 1536 |
-| **[Ollama](./ollama.md)** | `ollama` | ✅ local server | none | `nomic-embed-text` | 768 |
 | **[Gemini](./gemini.md)** | `gemini` | ☁️ cloud | `GOOGLE_API_KEY` | `models/gemini-embedding-001` | 768 |
 | **[Hugging Face](./huggingface.md)** | `huggingface` | ✅ in-process | none | `all-MiniLM-L6-v2` | 384 |
-| **[Azure OpenAI](./azure-openai.md)** | `azure_openai` | ☁️ cloud | Azure creds | `text-embedding-3-small` | 1536 |
+
 
 Other embedder providers Mem0 supports out of the box: `aws_bedrock`,
 `vertexai`, `together`, `lmstudio`, `fastembed`, `langchain`. **No `voyage`** —
