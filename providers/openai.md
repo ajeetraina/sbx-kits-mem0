@@ -1,8 +1,5 @@
 # OpenAI (cloud)
 
-If you already pay for OpenAI, you can power both halves from one key. The
-LLM (fact extraction) and the embedder (semantic search) flow through the same
-`openai` provider.
 
 | | |
 |---|---|
