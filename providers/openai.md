@@ -1,8 +1,6 @@
 # OpenAI
 
-If you already pay for OpenAI, you can power **both** halves from one key - the
-LLM (fact extraction) and the embedder (semantic search) flow through the same
-`openai` provider.
+OpenAI does offer an embeddings API (similar to Gemini).
 
 | | |
 |---|---|
