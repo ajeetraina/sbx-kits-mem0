@@ -13,7 +13,7 @@ per provider with copy-paste config.
 
 > **Why DMR is the default (and why Claude users especially need it):** Anthropic
 > [does not offer an embeddings model](https://docs.anthropic.com/en/docs/build-with-claude/embeddings)
-> — their docs point you to Voyage AI, and Mem0 has **no Voyage embedder
+> , their docs point you to Voyage AI, and Mem0 has **no Voyage embedder
 > provider**. So a Claude-agent user has no cloud embedder in their existing
 > credentials. DMR fills that gap locally. OpenAI/Gemini users, by contrast, can
 > reuse one key for both the LLM and the embedder.
@@ -29,7 +29,7 @@ per provider with copy-paste config.
 
 
 Other embedder providers Mem0 supports out of the box: `aws_bedrock`,
-`vertexai`, `together`, `lmstudio`, `fastembed`, `langchain`. **No `voyage`** —
+`vertexai`, `together`, `lmstudio`, `fastembed`, `langchain`. **No `voyage`** -
 confirmed against the Mem0 source.
 
 ## Two gotchas that apply to every provider
