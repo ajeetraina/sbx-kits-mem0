@@ -4,6 +4,9 @@ This is what the kit ships with. Both the LLM (fact extraction) and the embedder
 run locally via [Docker Model Runner](https://docs.docker.com/ai/model-runner/),
 so no cloud credentials and no external vector database are needed.
 
+DMR isn't a separate Mem0 provider. It's a local model runtime that Mem0 reaches
+through the `openai` provider, with `openai_base_url` pointed at the DMR endpoint.
+
 | | |
 |---|---|
 | Mem0 provider | `openai` (pointed at the DMR endpoint via `openai_base_url`) |
