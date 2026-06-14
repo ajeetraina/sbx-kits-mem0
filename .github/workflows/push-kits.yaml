@@ -44,3 +44,12 @@ jobs:
           DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}
           TAG: ${{ inputs.tag }}
         run: bash ./scripts/push-kits.sh
+
+      - name: Sync Docker Hub overview page
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/sbx-mem0-kits
+          readme-filepath: ./DOCKERHUB.md
+          short-description: "Docker Sandboxes mixin adding the Mem0 memory layer (DMR, OpenAI, Gemini)"
