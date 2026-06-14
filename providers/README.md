@@ -1,6 +1,6 @@
 # Embedding & LLM providers for the Mem0 kit
 
-Mem0 is a **semantic** memory store - the vector store *is* the memory. Every
+Mem0 is a **semantic** memory store. The vector store *is* the memory. Every
 `add()` embeds the extracted fact, and every `search()` embeds the query, so an
 **embedder is mandatory**; there is no "memory without embeddings" mode. Mem0
 also uses an **LLM** internally to extract facts from a conversation and decide
