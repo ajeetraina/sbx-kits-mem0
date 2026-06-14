@@ -85,4 +85,4 @@ users can instead reuse one key for both the LLM and the embedder.
 | [Gemini](./providers/gemini.md) | `gemini` | cloud | `GOOGLE_API_KEY` | `models/gemini-embedding-001` | 768 |
 
 Each page has the exact `config.json`, run command, and the dimension/network
-gotchas. Full notes: [providers/README.md](./providers/README.md).
+notes. More detail: [providers/README.md](./providers/README.md).

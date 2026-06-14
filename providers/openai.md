@@ -81,7 +81,7 @@ injection above, so nothing sensitive lives in `config.json`.
 sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
 ```
 
-## Gotcha
+## Notes
 
 Using `text-embedding-3-large` instead? That's 3072 dims, so change
 `embedding_model_dims` to `3072` and start a fresh collection

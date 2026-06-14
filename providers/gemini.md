@@ -95,7 +95,7 @@ Because of the two changes above, Gemini needs a kit built from an edited
 sbx run --kit ./ claude          # from your local repo with the edits applied
 ```
 
-## Gotchas
+## Notes
 
 - Model names move. Google retires Gemini model ids over time. The pair
   validated here (June 2026) is `models/gemini-embedding-001` + `gemini-2.5-flash`;

@@ -73,7 +73,7 @@ sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
 
 Expect a JSON list including `ai/gemma3` and `ai/mxbai-embed-large`.
 
-## Gotcha
+## Notes
 
 DMR is the well-justified default for Claude agents specifically: Anthropic
 ships no embeddings API, so this is the only zero-extra-vendor way to give a

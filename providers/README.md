@@ -26,7 +26,7 @@ the LLM and the embedder.
 | [OpenAI](./openai.md) | `openai` | cloud | `OPENAI_API_KEY` | `text-embedding-3-small` | 1536 |
 | [Gemini](./gemini.md) | `gemini` | cloud | `GOOGLE_API_KEY` | `models/gemini-embedding-001` | 768 |
 
-## Two gotchas that apply to every provider
+## Two notes that apply to every provider
 
 1. Dimensions must match. Each embedder emits a fixed vector size (mxbai 1024,
    OpenAI 3-small 1536, Gemini 768). That number must appear in both the embedder
