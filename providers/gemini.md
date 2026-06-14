@@ -44,7 +44,7 @@ network:
 }
 ```
 
-(The key is read from `GOOGLE_API_KEY`.)
+
 
 
 
