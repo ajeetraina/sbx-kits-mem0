@@ -17,7 +17,23 @@ docker model pull ai/gemma3              # LLM for memory extraction
 docker model pull ai/mxbai-embed-large   # embedder (1024-dim)
 ```
 
-### 2. Launch the sandbox with the kit
+### 2. Setting up the real secret key
+
+```console
+ sbx secret ls
+```
+
+Result:
+
+```console
+ sbx secret ls
+ SCOPE      TYPE      NAME        SECRET                                                                               
+  (global)   service   google      AQ.Ab8******...******wZ8Q                                                            
+  (global)   service   openai      sk-pro******...******YGQA                                                            
+  (global)   service   anthropic   (oauth configured) 
+```
+
+### 3. Launch the sandbox with the kit
 
 Layer the mixin onto an agent. From the published Docker Hub artifact
 (recommended - no clone needed):
@@ -39,7 +55,7 @@ git clone https://github.com/ajeetraina/sbx-kits-mem0.git
 sbx run --kit ./mem0-sbx-kits/ claude
 ```
 
-### 3. Confirm the kit installed correctly 
+### 4. Confirm the kit installed correctly 
 
 Once you're in the sandbox's Claude session, use ! shell escapes to check the wiring:
 Inside the sandbox, Mem0 is ready to use against DMR:
@@ -61,7 +77,7 @@ print(m.search("what coffee do they like?", filters={"user_id": "alice"}))
 PY
 ```
 
- ### 4. Check the sandbox can reach DMR on the host
+ ### 5. Check the sandbox can reach DMR on the host
 
  ```
 !curl -s http://host.docker.internal:12434/engines/v1/models | head
