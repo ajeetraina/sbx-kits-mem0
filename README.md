@@ -17,7 +17,19 @@ docker model pull ai/gemma3              # LLM for memory extraction
 docker model pull ai/mxbai-embed-large   # embedder (1024-dim)
 ```
 
-### 2. Setting up the real secret key
+### 2. Setting up the secret key (cloud providers only)
+
+The DMR default needs no key — skip this step. You only set a secret when you
+swap in a cloud provider (OpenAI or Gemini). Store it once with sbx's secret
+manager; the key is never baked into the kit, and the sbx proxy injects it into
+the sandbox at runtime (`sbx run` has no `-e` flag).
+
+```console
+echo "$OPENAI_API_KEY" | sbx secret set -g openai   # OpenAI (-g = all sandboxes)
+echo "$GOOGLE_API_KEY" | sbx secret set -g google   # Gemini
+```
+
+Then confirm it's stored:
 
 ```console
  sbx secret ls
