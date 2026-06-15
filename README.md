@@ -29,7 +29,8 @@ echo "$OPENAI_API_KEY" | sbx secret set -g openai   # OpenAI (-g = all sandboxes
 echo "$GOOGLE_API_KEY" | sbx secret set -g google   # Gemini
 ```
 
-Then confirm it's stored:
+Running `sbx secret set -g openai` (or `-g google`) with no piped value prompts
+you for the key interactively instead. Then confirm it's stored:
 
 ```console
  sbx secret ls
@@ -47,11 +48,18 @@ Result:
 
 ### 3. Launch the sandbox with the kit
 
-Layer the mixin onto an agent. From the published Docker Hub artifact
-(recommended - no clone needed):
+Layer the mixin onto an agent. Each provider is published as its own image tag —
+pick the one matching the secret you stored in step 2:
 
 ```console
+# DMR (default, no key needed) — :latest is the same as :dmr
 sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:latest claude
+
+# OpenAI — store the key and launch in one line
+sbx secret set -g openai && sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:openai claude
+
+# Gemini
+sbx secret set -g google && sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:gemini claude
 ```
 
 Or straight from this repo over git:
