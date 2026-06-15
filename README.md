@@ -86,3 +86,16 @@ users can instead reuse one key for both the LLM and the embedder.
 
 Each page has the exact `config.json`, run command, and the dimension/network
 notes. More detail: [providers/README.md](./providers/README.md).
+
+## Troubleshooting
+
+In case you face the following error message while runnng `sbx run --kit docker.io/..`:
+
+```
+sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:openai claude
+Creating new sandbox 'claude-ajeetraina'...
+ERROR: failed to create sandbox: create runtime: create runtime: sandboxd error: status 403: mount policy denied: /Users/ajeetraina: no applicable policies for op(action=fs:mount:write, resource=fs:path:/Users/ajeetraina)
+```
+
+The error is from the sbx sandbox runtime refusing to mount your home directory (/Users/your-home-directory). When you run sbx run from a folder, it tries to mount that folder (your current working directory) into the sandbox with write access and there's a policy that forbids mounting /Users/your-home-directory directly (mounting your entire home dir is blocked for safety). Pick up any other director other than home directory.
+
