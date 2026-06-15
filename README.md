@@ -75,6 +75,32 @@ git clone https://github.com/ajeetraina/sbx-kits-mem0.git
 sbx run --kit ./mem0-sbx-kits/ claude
 ```
 
+#### Choosing the agent
+
+The trailing argument (`claude` above) is the **coding agent** that runs inside
+the sandbox — it is a separate axis from the provider kit tag. The provider tag
+(`:openai`, `:gemini`, `:dmr`) decides what the Mem0 memory layer uses for its
+LLM and embedder; the agent decides which assistant you actually interact with.
+Any supported agent pairs with any provider tag.
+
+`sbx run --help` lists the available agents:
+
+```
+claude, claude-bedrock, codex, copilot, cursor, docker-agent, droid, gemini, kiro, opencode, shell
+```
+
+So you can swap `claude` for any of these, for example Codex on OpenAI-backed
+memory:
+
+```console
+sbx secret set -g openai && sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:openai codex
+```
+
+Note that `gemini` here is an agent (Google's Gemini CLI), which is unrelated to
+the `:gemini` kit tag (Mem0's Gemini provider) — they are independent choices.
+Arguments meant for the agent itself go after a `--` separator, e.g.
+`sbx run --kit ...:openai codex -- --help`.
+
 ### 4. Confirm the kit installed correctly 
 
 Once you're in the sandbox's Claude session, use ! shell escapes to check the wiring:
