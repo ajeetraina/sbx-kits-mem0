@@ -48,7 +48,7 @@ Result:
 
 ### 3. Launch the sandbox with the kit
 
-Layer the mixin onto an agent. Each provider is published as its own image tag —
+Layer the mixin onto an agent. Each provider is published as its own image tag -
 pick the one matching the secret you stored in step 2:
 
 ```console
@@ -78,7 +78,7 @@ sbx run --kit ./mem0-sbx-kits/ claude
 #### Choosing the agent
 
 The trailing argument (`claude` above) is the **coding agent** that runs inside
-the sandbox — it is a separate axis from the provider kit tag. The provider tag
+the sandbox. It is a separate axis from the provider kit tag. The provider tag
 (`:openai`, `:gemini`, `:dmr`) decides what the Mem0 memory layer uses for its
 LLM and embedder; the agent decides which assistant you actually interact with.
 Any supported agent pairs with any provider tag.
