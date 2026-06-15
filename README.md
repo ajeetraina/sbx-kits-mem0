@@ -97,7 +97,7 @@ sbx secret set -g openai && sbx run --kit docker.io/ajeetraina777/sbx-mem0-kits:
 ```
 
 Note that `gemini` here is an agent (Google's Gemini CLI), which is unrelated to
-the `:gemini` kit tag (Mem0's Gemini provider) — they are independent choices.
+the `:gemini` kit tag (Mem0's Gemini provider), they are independent choices.
 Arguments meant for the agent itself go after a `--` separator, e.g.
 `sbx run --kit ...:openai codex -- --help`.
 
