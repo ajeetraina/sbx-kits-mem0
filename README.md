@@ -103,8 +103,43 @@ Arguments meant for the agent itself go after a `--` separator, e.g.
 
 ### 4. Confirm the kit installed correctly 
 
-Once you're in the sandbox's Claude session, use ! shell escapes to check the wiring:
-Inside the sandbox, Mem0 is ready to use against DMR:
+Once you're in the sandbox's Claude session, use `!` shell escapes to prove the
+mixin is really inside. The kit does four observable things — installs
+`mem0ai`, sets env vars, writes `~/.mem0/config.json`, and injects a memory
+note — so you can verify it on independent layers, from a cheap import check up
+to a full end-to-end run.
+
+**4a. The package is installed (the pinned version, in the user-site path):**
+
+```console
+!python3 -c "import mem0, importlib.metadata as m; print('mem0ai', m.version('mem0ai'), '->', mem0.__file__)"
+```
+
+Expect `mem0ai 2.0.5` (the exact pin from this kit's `spec.yaml`) installed
+under `/home/agent/.local/lib/.../site-packages/` — the user-site location that
+matches the kit installing as user `1000` rather than as root.
+
+**4b. The mixin's env vars are present** — these are declared only in the kit's
+`spec.yaml`, so they are a fingerprint that the kit (not a manual `pip install`)
+wired things up:
+
+```console
+!env | grep -E 'OPENAI_BASE_URL|OPENAI_API_KEY|MEM0_TELEMETRY|NO_PROXY'
+```
+
+Expect `OPENAI_BASE_URL=http://host.docker.internal:12434/engines/v1`,
+`OPENAI_API_KEY=dmr`, and `MEM0_TELEMETRY=false`.
+
+**4c. The init file the kit wrote exists** (the qdrant + DMR-wired config):
+
+```console
+!cat /home/agent/.mem0/config.json
+```
+
+**4d. End-to-end functional proof** — add a memory and read it back through the
+local DMR. This single command transitively exercises the package, the config
+file, the env vars, and the DMR connection, so if you only run one check, run
+this one:
 
 ```console
 !python3 - <<'PY'
@@ -122,6 +157,8 @@ m.add([{"role": "user", "content": "I prefer dark roast coffee"}], user_id="alic
 print(m.search("what coffee do they like?", filters={"user_id": "alice"}))
 PY
 ```
+
+Expect the search to return the stored "dark roast coffee" memory.
 
  ### 5. Check the sandbox can reach DMR on the host
 
