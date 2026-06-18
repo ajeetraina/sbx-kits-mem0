@@ -12,6 +12,13 @@ DMR is the zero-config default. It works with no cloud keys, but the embedder an
 
 ## Prerequisites
 
+### 0. Login to Docker Hub
+
+```console
+sbx login
+```
+
+
 ### 1. Preparing the host 
 
 Docker Model Runner must be enabled in Docker Desktop (Settings → AI / Beta features) and the two models pulled before you start:
