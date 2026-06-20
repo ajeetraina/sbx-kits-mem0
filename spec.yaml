@@ -11,6 +11,7 @@ network:
     - raw.githubusercontent.com
     - github.com
     - release-assets.githubusercontent.com
+    - localhost:12434
 
 environment:
   variables:
