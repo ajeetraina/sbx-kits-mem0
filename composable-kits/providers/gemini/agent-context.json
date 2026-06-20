@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1",
+  "kind": "provider",
+  "name": "gemini",
+  "displayName": "Google Gemini",
+  "network": ["generativelanguage.googleapis.com"],
+  "secrets": [
+    { "ref": "google", "description": "Google API key; injected by the sbx proxy, never present in the sandbox." }
+  ],
+  "env": {},
+  "config": {
+    "role": "llm-provider",
+    "apiStyle": "gemini",
+    "baseUrl": "https://generativelanguage.googleapis.com",
+    "auth": { "type": "apiKey", "secretRef": "google", "envVar": "GOOGLE_API_KEY" },
+    "models": { "llm": "gemini-2.5-flash", "embedder": "models/gemini-embedding-001" }
+  }
+}

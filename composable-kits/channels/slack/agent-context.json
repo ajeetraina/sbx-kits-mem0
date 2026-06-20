@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "kind": "channel",
+  "name": "slack",
+  "displayName": "Slack",
+  "network": ["slack.com", "wss-primary.slack.com"],
+  "secrets": [
+    { "ref": "slack_bot", "description": "Slack bot token; injected by the sbx proxy." },
+    { "ref": "slack_app", "description": "Slack app-level token for socket mode; injected by the sbx proxy." }
+  ],
+  "env": {},
+  "config": {
+    "role": "messaging-channel",
+    "transport": "slack",
+    "auth": { "type": "botToken", "secretRef": "slack_bot", "envVar": "SLACK_BOT_TOKEN" }
+  }
+}

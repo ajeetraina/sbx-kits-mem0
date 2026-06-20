@@ -1,0 +1,23 @@
+schemaVersion: "1"
+kind: channel
+name: telegram
+displayName: Telegram
+description: "Gives an agent a Telegram messaging channel. Reusable across ANY agent kit via the agent-context contract. Store the token with: sbx secret set -g telegram_bot."
+
+network:
+  allowedDomains:
+    - api.telegram.org
+
+secrets:
+  - ref: telegram_bot
+    description: "Telegram bot token from @BotFather; injected by the sbx proxy."
+
+environment:
+  variables: {}
+
+commands:
+  initFiles:
+    - path: /etc/sbx/agent-context.d/telegram.json
+      mode: "0644"
+      source: agent-context.json
+      description: "Declares this channel to the agent via the agent-context contract."

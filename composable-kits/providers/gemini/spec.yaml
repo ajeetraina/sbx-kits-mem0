@@ -1,0 +1,23 @@
+schemaVersion: "1"
+kind: provider
+name: gemini
+displayName: Google Gemini
+description: "Configures an agent's LLM provider to use Google Gemini. Reusable across ANY agent kit via the agent-context contract. Store the key with: sbx secret set -g google (the kit holds no key)."
+
+network:
+  allowedDomains:
+    - generativelanguage.googleapis.com
+
+secrets:
+  - ref: google
+    description: "Google API key; injected by the sbx proxy from the stored 'google' secret."
+
+environment:
+  variables: {}
+
+commands:
+  initFiles:
+    - path: /etc/sbx/agent-context.d/gemini.json
+      mode: "0644"
+      source: agent-context.json
+      description: "Declares this provider to the agent via the agent-context contract."

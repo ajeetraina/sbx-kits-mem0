@@ -1,0 +1,33 @@
+schemaVersion: "1"
+kind: agent
+name: nova
+displayName: Nova
+description: "Demo agent. Provider/channel-agnostic: at startup it reads whatever provider and channel kits dropped into /etc/sbx/agent-context.d and renders its native TOML config. Pair it with ANY provider + channel kit."
+
+# Base image the sandbox starts from (NEW vs. mixin schema). This is the gap
+# "docker image missing in mixin" closes -- the agent kit names its base, kits
+# layer on top.
+image: docker.io/library/python:3.12-slim
+
+network:
+  allowedDomains:
+    - pypi.org
+    - files.pythonhosted.org
+
+commands:
+  initFiles:
+    - path: /home/agent/nova/reconcile.py
+      mode: "0755"
+      source: reconcile.py
+      description: "Reconciler: reads agent-context.d and renders nova.toml."
+
+  # THE WORKAROUND. startup runs after every kit's build-time initFiles, so the
+  # fragments are already on disk. The agent 'gets the last word' here -- no
+  # engine lifecycle change required.
+  startup:
+    - command: "python3 /home/agent/nova/reconcile.py"
+      user: "1000"
+      description: "Render native config from agent-context.d (agent goes last)."
+    - command: "python3 -m nova.serve"
+      user: "1000"
+      description: "Launch the agent (illustrative)."
