@@ -4,7 +4,7 @@
 This is a standalone [Docker Sandboxes](https://docs.docker.com/ai/sandboxes/) kit (`kind: mixin`) that adds the [Mem0](https://mem0.ai/) memory layer (`mem0ai`)
 to any sandbox agent, pre-wired to a local [Docker Model Runner](https://docs.docker.com/ai/model-runner/) (DMR) for both the LLM and the embedder.
 
-<img width="1209" height="561" alt="image" src="https://github.com/user-attachments/assets/141d7125-c075-41f0-a715-ad257c15f3a7" />
+<img width="1747" height="857" alt="image" src="https://github.com/user-attachments/assets/82a44ff3-ec17-440d-bd30-31c2fe320c17" />
 
 
 DMR is the zero-config default. It works with no cloud keys, but the embedder and LLM are both swappable. See [providers/](./providers/) for copy-paste config for OpenAI and Gemini.
