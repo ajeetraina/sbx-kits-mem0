@@ -83,7 +83,7 @@ Or from a local clone (the kit lives at the repo root):
 
 ```console
 git clone https://github.com/ajeetraina/sbx-kits-mem0.git
-sbx run --kit ./mem0-sbx-kits/ claude
+sbx run --kit ./sbx-kits-mem0/ claude
 ```
 
 #### Choosing the agent
