@@ -179,6 +179,26 @@ Expect the search to return the stored "dark roast coffee" memory.
 
 Expect a JSON list including ai/gemma3 and ai/mxbai-embed-large. 
 
+### 6. Try a runbook
+
+The kit ships runnable demos under `~/runbooks/`. They are plain files under
+[`files/home/runbooks/`](./files/home/runbooks/) in this repo (the
+[sbx-kits-contrib][contrib] `files/home/` convention — everything under it is
+mirrored into `/home/agent/`), **not** hard-coded into `spec.yaml`. The DMR tags
+include `travel.py`, a travel assistant that remembers the traveler across
+separate runs:
+
+```console
+!python3 ~/runbooks/travel.py "I'm vegetarian, I like aisle seats. Book me to Lisbon."
+!python3 ~/runbooks/travel.py "Plan my return leg."   # fresh process; it still knows you
+```
+
+To add a runbook, drop a `*.py` in `files/home/runbooks/` — it ships
+automatically, no `spec.yaml` change. Because the tree lives at the repo root,
+`sbx run --kit ./` picks it up for local testing too.
+
+[contrib]: https://github.com/docker/sbx-kits-contrib
+
 ## Swapping the embedding / LLM provider
 
 Mem0 is a semantic memory store, so an embedder is mandatory. There is no
