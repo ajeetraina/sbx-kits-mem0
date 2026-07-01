@@ -19,6 +19,14 @@ for var in ("NO_PROXY", "no_proxy"):
     if var in os.environ:
         os.environ[var] = ",".join(e for e in os.environ[var].split(",") if e.strip() != "[::1]")
 
+# sbx injects "proxy-managed" credential sentinels for openai/openrouter even
+# when no secret is configured. Mem0's extractor reads OPENAI_API_KEY from the
+# environment, so the sentinel overrides the kit's "dmr" key and the extraction
+# call gets routed to openrouter.ai (which the sandbox then blocks). Force the
+# local key and drop the openrouter sentinel before mem0 is imported.
+os.environ["OPENAI_API_KEY"] = "dmr"
+os.environ.pop("OPENROUTER_API_KEY", None)
+
 from openai import OpenAI
 from mem0 import Memory
 
