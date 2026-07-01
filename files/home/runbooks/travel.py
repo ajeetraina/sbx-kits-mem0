@@ -60,3 +60,8 @@ def reply(question):
 if __name__ == "__main__":
     question = " ".join(sys.argv[1:]) or "Plan me a trip somewhere warm."
     print(reply(question))
+    # The local Qdrant client's __del__ runs during interpreter shutdown and
+    # prints a harmless "Exception ignored ... sys.meta_path is None" traceback.
+    # All work is already done and printed above, so exit cleanly and skip it.
+    sys.stdout.flush()
+    os._exit(0)
